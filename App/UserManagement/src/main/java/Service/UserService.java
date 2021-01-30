@@ -1,6 +1,6 @@
 package Service;
 
-import Entity.User;
+import Model.UserViewModel;
 import Repository.DataRepo;
 
 import java.util.List;
@@ -13,23 +13,24 @@ public class UserService implements IUSerService {
     }
 
     @Override
-    public List<User> getAll(String filter) {
+    public List<UserViewModel> getAll(String filter) {
 
         return null;
     }
 
     @Override
-    public void add(User user) {
+    public void create(UserViewModel user) {
+
+    }
+
+
+    @Override
+    public void update(UserViewModel entity) {
 
     }
 
     @Override
-    public void Update(User entity) {
-
-    }
-
-    @Override
-    public void Delete(User entity) {
+    public void delete(UserViewModel entity) {
 
     }
 }

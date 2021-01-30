@@ -1,16 +1,16 @@
 package Service;
 
-import Entity.User;
+import Model.UserViewModel;
 
 import java.util.List;
 
 public interface IUSerService {
 
-    public List<User> getAll(String filter);
+    public List<UserViewModel> getAll(String filter);
 
-    public void add(User user);
+    public void create(UserViewModel user);
 
-    public void Update(User entity);
+    public void update(UserViewModel entity);
 
-    public void Delete(User entity);
+    public void delete(UserViewModel entity);
 }
