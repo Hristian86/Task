@@ -2,12 +2,13 @@ package Domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.sql.Date;
 
 @Entity(name = "Users")
 public class Users extends BaseModel {
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private Date birthDate;
     private int phoneNumber;
     private String email;
 
@@ -33,12 +34,13 @@ public class Users extends BaseModel {
         this.lastName = lastName;
     }
 
+
     @Column(name = "birthDate")
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 

@@ -1,22 +1,33 @@
 package Model;
 
+import java.sql.Date;
+
 public class UserViewModel {
+    private String id;
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private Date birthDate;
     private int phoneNumber;
     private String email;
-
     public UserViewModel() {
 
     }
 
-    public UserViewModel(String firstName, String lastName, String birthDate, int phoneNumber, String email) {
+    public UserViewModel(String id, String firstName, String lastName, Date birthDate, int phoneNumber, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -35,11 +46,11 @@ public class UserViewModel {
         this.lastName = lastName;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 

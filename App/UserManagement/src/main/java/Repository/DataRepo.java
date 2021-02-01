@@ -54,7 +54,11 @@ public class DataRepo implements IRepository<Users, String> {
 
     @Override
     public void delete(String id) {
-        Users user = this.findById(id);
+        Users user = this.entityManager
+                .createQuery("SELECT u FROM Users u WHERE u.id = :id", Users.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
         this.entityManager.remove(user);
     }
 }
