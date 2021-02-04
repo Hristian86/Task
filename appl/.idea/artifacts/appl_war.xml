@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="appl:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>appl</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="appl-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="appl:war exploded" />
+    </root>
+  </artifact>
+</component>
