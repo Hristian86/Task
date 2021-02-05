@@ -117,6 +117,10 @@ public class DataRepo implements IRepository<Users, String> {
             result = this.entityManager
                     .createQuery("SELECT u FROM Users u ORDER BY u.lastName DESC", Users.class)
                     .getResultList();
+        } else {
+            result = this.entityManager
+                    .createQuery("SELECT u FROM Users u ORDER BY u.id DESC", Users.class)
+                    .getResultList();
         }
 
         return result;
