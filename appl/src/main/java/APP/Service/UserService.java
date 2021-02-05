@@ -55,7 +55,15 @@ public class UserService implements IUSerService {
     }
 
     @Override
-    public void delete(UserViewModel entity) {
-        this.userRepo.delete(entity.getId());
+    public void delete(String userId) {
+
+        this.userRepo.delete(userId);
+    }
+
+    @Override
+    public UserViewModel getById(String id) {
+        Users user = userRepo.findById(id);
+        UserViewModel model = new UserViewModel(user.getId(), user.getFirstName(), user.getLastName(), user.getBirthDate(), user.getPhoneNumber(), user.getEmail());
+        return model;
     }
 }

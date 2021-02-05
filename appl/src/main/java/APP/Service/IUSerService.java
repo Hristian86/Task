@@ -13,5 +13,7 @@ public interface IUSerService {
 
     public void update(UserViewModel entity);
 
-    public void delete(UserViewModel entity);
+    public void delete(String entity);
+
+    public UserViewModel getById(String id);
 }

@@ -50,8 +50,8 @@ public class UserViewModel {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDate(java.util.Date birthDate) {
+        this.birthDate = new java.sql.Date(birthDate.getTime());
     }
     public String getPhoneNumber() {
         return phoneNumber;

@@ -47,8 +47,10 @@
         <td><%=u.getBirthDate()%></td>
         <td><%=u.getPhoneNumber()%></td>
         <td><%=u.getEmail()%></td>
-        <a href="users?action=edit&id=${u.getId}">Update</a>
-        <a href="users?action=delete&id=${u.getId}">Delete</a>
+        <td>
+            <a href="users?action=edit&id=<%=u.getId()%>">Update</a>
+            <a href="users?action=delete&id=<%=u.getId()%>">Delete</a>
+        </td>
     </tr>
     <%
         }

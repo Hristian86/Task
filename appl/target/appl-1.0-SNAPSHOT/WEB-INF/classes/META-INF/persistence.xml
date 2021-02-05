@@ -8,7 +8,7 @@
 
         <properties>
 
-            <property name = "hibernate.connection.url" value="jdbc:mysql://localhost:3306/user_management?useSSL=false&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC"/>
+            <property name = "hibernate.connection.url" value="jdbc:mysql://localhost:3306/user_management2?useSSL=false&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC"/>
 
             <property name = "hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 
