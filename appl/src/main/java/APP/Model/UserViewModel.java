@@ -3,7 +3,7 @@ package APP.Model;
 import java.sql.Date;
 
 public class UserViewModel {
-    private String id;
+    private int id;
     private String firstName;
     private String lastName;
     private Date birthDate;
@@ -13,7 +13,7 @@ public class UserViewModel {
 
     }
 
-    public UserViewModel(String id, String firstName, String lastName, Date birthDate, String phoneNumber, String email) {
+    public UserViewModel(int id, String firstName, String lastName, Date birthDate, String phoneNumber, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,11 +22,11 @@ public class UserViewModel {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

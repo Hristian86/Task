@@ -1,6 +1,7 @@
 package APP.Controllers;
 
 import APP.Model.UserViewModel;
+import APP.Repository.DataRepo;
 import APP.Service.UserService;
 
 import javax.inject.Inject;
@@ -23,11 +24,14 @@ public class Home extends HttpServlet {
     }
      */
 
+    UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       /*
+
+        /*
         UserViewModel user = new UserViewModel();
-        user.setId("asd");
+        user.setId(1);
         user.setFirstName("pencho");
         user.setLastName("penchev");
         user.setBirthDate(new Date());
@@ -36,8 +40,10 @@ public class Home extends HttpServlet {
 
         this.userService.create(user);
 
+         */
+
         req.setAttribute("users", this.userService.getAll(null,null));
-        */
+
         req .getRequestDispatcher("home.jsp")
                 .forward(req, resp);
     }

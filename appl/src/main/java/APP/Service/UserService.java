@@ -3,19 +3,25 @@ package APP.Service;
 import APP.Domain.Users;
 import APP.Model.UserViewModel;
 import APP.Repository.DataRepo;
+import APP.Repository.UserRepositoryImpl;
 
 import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserService implements IUSerService {
-    private final DataRepo userRepo;
+    /*
+    private final UserRepositoryImpl userRepo;
 
     //TODO Auto mapper...
     @Inject
-    public UserService(DataRepo userRepo) {
+    public UserService(UserRepositoryImpl userRepo) {
         this.userRepo = userRepo;
     }
+
+     */
+
+    DataRepo userRepo = new DataRepo();
 
     @Override
     public Iterable<UserViewModel> getAll(String filter, String searchWord) {
@@ -55,13 +61,13 @@ public class UserService implements IUSerService {
     }
 
     @Override
-    public void delete(String userId) {
+    public void delete(int userId) {
 
         this.userRepo.delete(userId);
     }
 
     @Override
-    public UserViewModel getById(String id) {
+    public UserViewModel getById(int id) {
         Users user = userRepo.findById(id);
         UserViewModel model = new UserViewModel(user.getId(), user.getFirstName(), user.getLastName(), user.getBirthDate(), user.getPhoneNumber(), user.getEmail());
         return model;

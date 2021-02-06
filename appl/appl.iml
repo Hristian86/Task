@@ -10,8 +10,8 @@
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/resources" />
           <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -21,6 +21,7 @@
         <datasource-mapping>
           <factory-entry name="UserManagement" value="f054a1a9-32d5-48e3-ad98-de08072abfec" />
           <factory-entry name="default" />
+          <factory-entry name="user_management" value="f68a94b3-c654-4863-b9ca-6151d468484d" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
@@ -28,8 +29,11 @@
     </facet>
     <facet type="hibernate" name="Hibernate">
       <configuration>
-        <datasource-map />
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="b41445da-77bb-40cf-b453-b5de4b6e9a4e" />
+        </datasource-map>
         <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>
@@ -45,6 +49,8 @@
     </content>
     <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
+    <orderEntry type="library" name="Validation API-2.0.1.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.enterprise:cdi-api:2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.interceptor:javax.interceptor-api:1.2" level="project" />
@@ -58,6 +64,11 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.7.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.14" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.asm:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:org.eclipse.persistence.jpa.jpql:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.persistence:jakarta.persistence-api:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.4.25.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.4.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.27.0-GA" level="project" />
@@ -75,11 +86,12 @@
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:5.4.27.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:jsp-api:2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.4" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
-    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
   </component>
 </module>

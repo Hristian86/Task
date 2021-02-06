@@ -1,10 +1,12 @@
 package APP.Domain;
 
+import org.hibernate.annotations.Table;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Date;
 
-@Entity(name = "Users")
+@Entity(name = "users")
 public class Users extends BaseModel {
     private String firstName;
     private String lastName;

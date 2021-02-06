@@ -20,18 +20,22 @@ import java.util.List;
 @WebServlet("/userss")
 public class UserController extends HttpServlet {
     private static String INSERT_OR_EDIT = "/user.jsp";
-    private static String LIST_USER = "/users.jsp";
+    private static String LIST_USER = "/index.jsp";
     /*
     private DataRepo data = new DataRepo();
     private UserService userService = new UserService(data);
      */
 
+    /*
     private final UserService userService;
 
     @Inject
     public UserController(UserService userService) {
         this.userService = userService;
     }
+     */
+
+    UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,7 +44,7 @@ public class UserController extends HttpServlet {
         String action = req.getParameter("action");
 
         if (action.equalsIgnoreCase("delete")) {
-            String userId = req.getParameter("userId");
+            int userId = Integer.parseInt(req.getParameter("userId"));
             this.userService.delete(userId);
             forward = LIST_USER;
 
@@ -49,7 +53,7 @@ public class UserController extends HttpServlet {
 
         } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
-            String userId = req.getParameter("userId");
+            int userId = Integer.parseInt(req.getParameter("userId"));
             UserViewModel user = this.userService.getById(userId);
             req.setAttribute("user", user);
             req.setAttribute("title", "Edit");
@@ -84,9 +88,9 @@ public class UserController extends HttpServlet {
         }
         user.setEmail(request.getParameter("email"));
 
-        String userid = request.getParameter("userid");
+        int userid = Integer.parseInt(request.getParameter("userid"));
 
-            if (userid == null || userid.isEmpty()) {
+            if (userid > 0) {
                 this.userService.create(user);
             } else {
                 user.setId(userid);

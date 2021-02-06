@@ -12,5 +12,27 @@ I:/FilesForGithub/Task/appl/src/main/resources/META-INF/persistence.xml</remarks
       <jdbc-url>jdbc:mysql://localhost:3306/user_management?useSSL=false&amp;createDatabaseIfNotExist=true&amp;serverTimezone=UTC</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="b41445da-77bb-40cf-b453-b5de4b6e9a4e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+I:/FilesForGithub/Task/appl/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/user_management?serverTimezone=UTC</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="user_management/Hibernate" uuid="f68a94b3-c654-4863-b9ca-6151d468484d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+I:/FilesForGithub/Task/appl/src/main/resources/META-INF/persistence.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/user_management?createDatabaseIfNotExist=true&amp;useSSL=false</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

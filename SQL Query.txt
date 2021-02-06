@@ -1,0 +1,8 @@
+CREATE TABLE `user_management`.`users` (
+  `id` INT NOT NULL,
+  `firstName` VARCHAR(45) NULL,
+  `lastName` VARCHAR(45) NULL,
+  `birthDate` DATE NULL,
+  `phoneNumber` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
