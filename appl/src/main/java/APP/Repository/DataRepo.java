@@ -29,7 +29,6 @@ public class DataRepo implements IRepository<Users> {
 
     public DataRepo() {
 
-        //session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
     private void initHib() {
@@ -110,9 +109,6 @@ public class DataRepo implements IRepository<Users> {
         Transaction t = this.session.beginTransaction();
         this.session.delete(user);
         t.commit();
-
-
-        //this.entityManager.remove(user);
     }
 
 

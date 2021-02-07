@@ -68,6 +68,7 @@ public class UserController extends HttpServlet {
             this.userService.delete(userId);
             forward = LIST_USER;
             req.setAttribute("users", this.userService.getAll(req.getParameter("sort"),req.getParameter("search")));
+            req.setAttribute("success", "deleted");
 
         } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
@@ -93,22 +94,24 @@ public class UserController extends HttpServlet {
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
+        boolean isbirthDateValid = true;
 
         try {
 
             Date birthday = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthday"));
             user.setBirthDate(birthday);
         } catch (ParseException e) {
-
+            isbirthDateValid = false;
             e.printStackTrace();
         }
+
         user.setEmail(request.getParameter("email"));
             String userId = request.getParameter("userid");
             if (userId == null || userId.isEmpty()) {
 
                 List<String> validate = this.validateUser(user);
 
-                if (validate.isEmpty()) {
+                if (validate.isEmpty() && isbirthDateValid) {
                     request.setAttribute("success", "Success");
                     this.userService.create(user);
                 } else {
@@ -118,7 +121,7 @@ public class UserController extends HttpServlet {
             } else {
                 List<String> validate = this.validateUser(user);
 
-                if (validate.isEmpty()) {
+                if (validate.isEmpty() && isbirthDateValid) {
                     request.setAttribute("success", "Success");
                     int userid = Integer.parseInt(request.getParameter("userid"));
                     user.setId(userid);
@@ -151,14 +154,14 @@ public class UserController extends HttpServlet {
         if (user.getPhoneNumber() == null) {
             errors.add("Phone number must be provided.");
         } else if(user.getPhoneNumber().length() < 10 || user.getPhoneNumber().length() > 50) {
-            errors.add("Incorect phone number .");
+            errors.add("Incorrect phone number .");
         }
 
         // TODO regex.
         if (user.getEmail() == null) {
             errors.add("Email must be provided.");
         } else if(user.getEmail().length() < 6 || user.getEmail().length() > 50) {
-            errors.add("Incorect email address.");
+            errors.add("Incorrect email address.");
         }
 
         return  errors;

@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
             <label>Birthday</label>
-            <input type="date" name="birthday" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${user.birthDate}" />" autocomplete="off" />
+            <input type="date" name="birthday" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${user.birthDate}" />" autocomplete="off" />
         </div>
         <div class="form-group">
             <label>Phone number</label>

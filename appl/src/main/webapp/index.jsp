@@ -11,7 +11,7 @@
 <h1 class="text-center">
     User management.
 </h1>
-
+<div class="text-center">
     <%
     List<String> lists = (List) request.getAttribute("errors");
 
@@ -25,6 +25,7 @@
             }
         }
     %>
+</div>
 
 <% request.getAttribute("success"); %>
 
@@ -73,7 +74,7 @@
     <form method="get" action="/userss" class="form-inline my-2 my-lg-0 mr-4 pl-3">
 
         <select name="sort" class="custom-select-sm drop btn btn-success" style="height: 38px;">
-            <option value="">None</option>
+            <option value="">Additional sort</option>
             <option value="last_name_asc">last name asc</option>
             <option value="last_name_desc">last name desc</option>
             <option value="birth_date_asc">birth date asc</option>

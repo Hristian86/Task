@@ -48,7 +48,7 @@ public class UserViewModel {
     }
 
     @Min(value = 1)
-    @Max(value = 100)
+    @Max(value = 50)
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -62,7 +62,7 @@ public class UserViewModel {
     }
 
     @Min(value = 1)
-    @Max(value = 30)
+    @Max(value = 50)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -74,8 +74,8 @@ public class UserViewModel {
         return email;
     }
 
-    @Min(value = 1)
-    @Max(value = 40)
+    @Min(value = 6)
+    @Max(value = 50)
     @Pattern(regexp=".+@.+\\.[a-z]+", message="Invalid email address!")
     public void setEmail(String email) {
         this.email = email;
