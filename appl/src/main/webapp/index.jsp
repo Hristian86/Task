@@ -55,15 +55,15 @@
 
     <form method="get" action="/userss" class="form-inline my-2 my-lg-0 mr-4 pl-3">
 
-        <select name="sort" class="custom-select-sm drop btn btn-success">
-            <option value="">Original order</option>
+        <select name="sort" class="custom-select-sm drop btn btn-success" style="height: 38px;">
+            <option value="">None</option>
             <option value="last_name_asc">last name asc</option>
             <option value="last_name_desc">last name desc</option>
             <option value="birth_date_asc">birth date asc</option>
             <option value="birth_date_desc">birth date desc</option>
         </select>
 
-        <input maxlength="50" class="form-control mr-sm-2 w-25" type="text" name="search" placeholder="Search" aria-label="Search">
+        <input maxlength="50" class="form-control mr-sm-2 w-50" type="text" name="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-button">Search</button>
     </form>
 

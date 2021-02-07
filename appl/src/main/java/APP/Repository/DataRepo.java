@@ -45,39 +45,6 @@ public class DataRepo implements IRepository<Users> {
     @Override
     public Users save(Users user) {
 
-        //this.init();
-
-        //this.entityManager.getTransaction().begin();
-        /*
-        this.entityManager
-                .createNamedQuery("INSERT INTO users" + "  (firstName, lastName, birthDate, phoneNumber, email) VALUES "
-                        + " ("+ user.getFirstName() +", "+ user.getLastName() +", "+ user.getBirthDate() +", " + user.getPhoneNumber() + ", " + user.getEmail() + ");")
-                .executeUpdate();
-
-         */
-
-        /*
-        this.entityManager
-                .createQuery("INSERT INTO users" + "  (firstName, lastName, birthDate, phoneNumber, email) VALUES "
-                        + " ("+ user.getFirstName().toString() +","+ user.getLastName().toString() +","+ user.getBirthDate() +"," + user.getPhoneNumber().toString() + "," + user.getEmail().toString() + ")");
-
-
-         */
-
-           //Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(user.getBirthDate());
-        /*
-           String birthday = user.getBirthDate().toString();
-
-        this.entityManager
-                .createQuery("INSERT INTO users" + " (firstName, lastName, birthDate, phoneNumber, email) VALUES ('pesho','peshev','"+ birthday +"','123123','asdasd')");
-
-
-        //this.entityManager.persist(user);
-        this.entityManager.getTransaction().commit();
-
-
-         */
-
         this.initHib();
         Transaction t = this.session.beginTransaction();
         this.session.save(user);
@@ -161,7 +128,7 @@ public class DataRepo implements IRepository<Users> {
             toSearch = searchWord;
         }
 
-        if (filter == null) {
+        if (filter == null || filter.isEmpty()) {
             result = this.entityManager
                     .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.id DESC", Users.class)
                     .getResultList();
