@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet("/test")
@@ -22,7 +24,13 @@ public class test extends HttpServlet {
         UserViewModel user = new UserViewModel();
         user.setFirstName("pencho");
         user.setLastName("penchev");
-        user.setBirthDate(new Date());
+        try {
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("01,01,2020");
+
+        user.setBirthDate(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         user.setPhoneNumber("123123123");
         user.setEmail("asdasdcom");
 

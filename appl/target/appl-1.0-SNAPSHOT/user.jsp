@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Add New User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
 <script>
@@ -16,9 +17,9 @@
 
 <div class="container">
     <h2><%= request.getAttribute("title")%> User</h2>
-    <form method="POST" action='UserController' name="frmAddUser">
+    <form method="POST" action='/userss' name="frmAddUser">
         <input type="hidden" name="token" value="<%= session.getAttribute("token")%>" />
-        <input type="hidden" readonly="readonly" name="userid" value="<c:out value="${user.userid}" />" />
+        <input type="hidden" readonly="readonly" name="userid" value="<c:out value="${user.id}" />" />
         <div class="form-group">
             <label>First Name</label>
             <input type="text" name="firstName" value="<c:out value="${user.firstName}" />" />
@@ -29,7 +30,7 @@
         </div>
         <div class="form-group">
             <label>Birthday</label>
-            <input type="text" name="birthday" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${user.birthday}" />" autocomplete="off" />
+            <input type="date" name="birthday" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${user.birthDate}" />" autocomplete="off" />
         </div>
         <div class="form-group">
             <label>Phone number</label>
@@ -39,9 +40,11 @@
             <label>Email</label>
             <input type="text" name="email" value="<c:out value="${user.email}" />" />
         </div>
-        <input type="button" onclick="location.href='index.jsp'" class="btn btn-outline-secondary" value="Back">
+        <input type="button" onclick="location.href='/userss?action=listUser'" class="btn btn-outline-secondary" value="Back">
         <input type="submit" value="Submit" class="btn btn-success" />
     </form>
 </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 </body>
 </html>

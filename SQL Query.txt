@@ -1,5 +1,5 @@
 CREATE TABLE `user_management`.`users` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NULL,
   `birthDate` DATE NULL,

@@ -9,7 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DataRepo implements IRepository<Users> {
@@ -22,11 +25,15 @@ public class DataRepo implements IRepository<Users> {
             + " (?, ?, ?, ?, ?);";
 
     private EntityManager entityManager;
-    //private Session session;
+    private Session session;
 
     public DataRepo() {
 
         //session = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+
+    private void initHib() {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
     private void init() {
@@ -37,9 +44,10 @@ public class DataRepo implements IRepository<Users> {
     @Transactional
     @Override
     public Users save(Users user) {
-        this.init();
 
-        this.entityManager.getTransaction().begin();
+        //this.init();
+
+        //this.entityManager.getTransaction().begin();
         /*
         this.entityManager
                 .createNamedQuery("INSERT INTO users" + "  (firstName, lastName, birthDate, phoneNumber, email) VALUES "
@@ -56,19 +64,24 @@ public class DataRepo implements IRepository<Users> {
 
          */
 
-        this.entityManager
-                .createQuery("INSERT INTO users" + "  (firstName, lastName, birthDate, phoneNumber, email) VALUES ('pesho','peshev',"+ user.getBirthDate() +",'123123','asdasd')");
+           //Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(user.getBirthDate());
+        /*
+           String birthday = user.getBirthDate().toString();
 
+        this.entityManager
+                .createQuery("INSERT INTO users" + " (firstName, lastName, birthDate, phoneNumber, email) VALUES ('pesho','peshev','"+ birthday +"','123123','asdasd')");
 
 
         //this.entityManager.persist(user);
         this.entityManager.getTransaction().commit();
 
-        /*
-        Transaction t = this.session.beginTransaction();
-        this.session.save(users);
-        t.commit();
+
          */
+
+        this.initHib();
+        Transaction t = this.session.beginTransaction();
+        this.session.save(user);
+        t.commit();
 
         return user;
     }
@@ -107,7 +120,7 @@ public class DataRepo implements IRepository<Users> {
 
     @Override
     public Users findById(int id) {
-
+        this.init();
         //Transaction t = this.session.beginTransaction();
         Users user = this.entityManager
                 .createQuery("SELECT u FROM users u WHERE u.id = :id", Users.class)
@@ -120,20 +133,19 @@ public class DataRepo implements IRepository<Users> {
 
     @Override
     public void delete(int id) {
-
+        this.init();
         Users user = this.entityManager
                 .createQuery("SELECT u FROM users u WHERE u.id = :id", Users.class)
                 .setParameter("id", id)
                 .getSingleResult();
 
-        /*
+        this.initHib();
         Transaction t = this.session.beginTransaction();
-        Users user = this.findById(id);
         this.session.delete(user);
         t.commit();
-         */
 
-        this.entityManager.remove(user);
+
+        //this.entityManager.remove(user);
     }
 
 
@@ -149,22 +161,28 @@ public class DataRepo implements IRepository<Users> {
             toSearch = searchWord;
         }
 
-        if (filter == this.ORDER_BY_ASCENDING_BIRTH_DATE) {
+        if (filter == null) {
             result = this.entityManager
-                    .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.birthDate ASC", Users.class)
+                    .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.id DESC", Users.class)
                     .getResultList();
-        } else if (filter == this.ORDER_BY_DESCENDING_BIRTH_DATE) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.birthDate DESC", Users.class)
-                    .getResultList();
-        } else if (filter == this.ORDER_BY_ASCENDING_LAST_NAME) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.lastName ASC", Users.class)
-                    .getResultList();
-        } else if (filter == this.ORDER_BY_DESCENDING_LAST_NAME) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%"+ toSearch +"%' OR u.lastName LIKE '%"+ toSearch + "%' OR u.email LIKE '%"+ toSearch +"%' ORDER BY u.lastName DESC", Users.class)
-                    .getResultList();
+        } else {
+            if (filter.equals(this.ORDER_BY_ASCENDING_BIRTH_DATE)) {
+                result = this.entityManager
+                        .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%" + toSearch + "%' OR u.lastName LIKE '%" + toSearch + "%' OR u.email LIKE '%" + toSearch + "%' ORDER BY u.birthDate ASC", Users.class)
+                        .getResultList();
+            } else if (filter.equals(this.ORDER_BY_DESCENDING_BIRTH_DATE)) {
+                result = this.entityManager
+                        .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%" + toSearch + "%' OR u.lastName LIKE '%" + toSearch + "%' OR u.email LIKE '%" + toSearch + "%' ORDER BY u.birthDate DESC", Users.class)
+                        .getResultList();
+            } else if (filter.equals(this.ORDER_BY_ASCENDING_LAST_NAME)) {
+                result = this.entityManager
+                        .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%" + toSearch + "%' OR u.lastName LIKE '%" + toSearch + "%' OR u.email LIKE '%" + toSearch + "%' ORDER BY u.lastName ASC", Users.class)
+                        .getResultList();
+            } else if (filter.equals(this.ORDER_BY_DESCENDING_LAST_NAME)) {
+                result = this.entityManager
+                        .createQuery("SELECT u FROM users u WHERE u.firstName LIKE '%" + toSearch + "%' OR u.lastName LIKE '%" + toSearch + "%' OR u.email LIKE '%" + toSearch + "%' ORDER BY u.lastName DESC", Users.class)
+                        .getResultList();
+            }
         }
 
         return result;
@@ -173,26 +191,33 @@ public class DataRepo implements IRepository<Users> {
     private List<Users> cleanFilter(String filter) {
         List<Users> result = new ArrayList<>();
 
-        if (filter == this.ORDER_BY_ASCENDING_BIRTH_DATE) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u ORDER BY u.birthDate ASC", Users.class)
-                    .getResultList();
-        } else if (filter == this.ORDER_BY_DESCENDING_BIRTH_DATE) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u ORDER BY u.birthDate DESC", Users.class)
-                    .getResultList();
-        } else if (filter == this.ORDER_BY_ASCENDING_LAST_NAME) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u ORDER BY u.lastName ASC", Users.class)
-                    .getResultList();
-        } else if (filter == this.ORDER_BY_DESCENDING_LAST_NAME) {
-            result = this.entityManager
-                    .createQuery("SELECT u FROM users u ORDER BY u.lastName DESC", Users.class)
-                    .getResultList();
-        } else {
+        if (filter != null) {
+            int a = 1;
+        }
+
+        if (filter == null) {
             result = this.entityManager
                     .createQuery("SELECT u FROM users u ORDER BY u.id DESC", Users.class)
                     .getResultList();
+        } else {
+
+        if (filter.equals(ORDER_BY_ASCENDING_BIRTH_DATE)) {
+            result = this.entityManager
+                    .createQuery("SELECT u FROM users u ORDER BY u.birthDate ASC", Users.class)
+                    .getResultList();
+        } else if (filter.equals(this.ORDER_BY_DESCENDING_BIRTH_DATE)) {
+            result = this.entityManager
+                    .createQuery("SELECT u FROM users u ORDER BY u.birthDate DESC", Users.class)
+                    .getResultList();
+        } else if (filter.equals(this.ORDER_BY_ASCENDING_LAST_NAME)) {
+            result = this.entityManager
+                    .createQuery("SELECT u FROM users u ORDER BY u.lastName ASC", Users.class)
+                    .getResultList();
+        } else if (filter.equals(this.ORDER_BY_DESCENDING_LAST_NAME)) {
+            result = this.entityManager
+                    .createQuery("SELECT u FROM users u ORDER BY u.lastName DESC", Users.class)
+                    .getResultList();
+            }
         }
 
         return result;
