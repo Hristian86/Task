@@ -11,12 +11,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/userss")
 public class UserController extends HttpServlet {
@@ -40,7 +45,9 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        List<String> listEr = new ArrayList<>();
+        req.setAttribute("errors", listEr);
+        req.setAttribute("success", "");
         String forward = "";
         String action = req.getParameter("action");
 
@@ -98,15 +105,62 @@ public class UserController extends HttpServlet {
         user.setEmail(request.getParameter("email"));
             String userId = request.getParameter("userid");
             if (userId == null || userId.isEmpty()) {
-                this.userService.create(user);
+
+                List<String> validate = this.validateUser(user);
+
+                if (validate.isEmpty()) {
+                    request.setAttribute("success", "Success");
+                    this.userService.create(user);
+                } else {
+                    request.setAttribute("errors", validate);
+                }
+
             } else {
-                int userid = Integer.parseInt(request.getParameter("userid"));
-                user.setId(userid);
-                this.userService.update(user);
+                List<String> validate = this.validateUser(user);
+
+                if (validate.isEmpty()) {
+                    request.setAttribute("success", "Success");
+                    int userid = Integer.parseInt(request.getParameter("userid"));
+                    user.setId(userid);
+                    this.userService.update(user);
+                } else {
+                    request.setAttribute("errors", validate);
+                }
+
             }
 
         request.setAttribute("users", this.userService.getAll(request.getParameter("sort"),request.getParameter("search")));
         request.getRequestDispatcher(LIST_USER)
         .forward(request, response);
+    }
+
+    private List<String> validateUser(UserViewModel user) {
+        List<String> errors = new ArrayList<>();
+        if (user.getFirstName() == null) {
+            errors.add("First name must be at least 1 symbol long.");
+        } else if(user.getFirstName().length() < 2 || user.getFirstName().length() > 50) {
+            errors.add("First name must be at least 1 symbol long and max 50 symbols.");
+        }
+
+        if (user.getLastName() == null) {
+            errors.add("Last name must be at least 1 symbol long.");
+        } else if(user.getLastName().length() < 2 || user.getLastName().length() > 50) {
+            errors.add("Last name must be at least 1 symbol long and max 50 symbols.");
+        }
+
+        if (user.getPhoneNumber() == null) {
+            errors.add("Phone number must be provided.");
+        } else if(user.getPhoneNumber().length() < 10 || user.getPhoneNumber().length() > 50) {
+            errors.add("Incorect phone number .");
+        }
+
+        // TODO regex.
+        if (user.getEmail() == null) {
+            errors.add("Email must be provided.");
+        } else if(user.getEmail().length() < 6 || user.getEmail().length() > 50) {
+            errors.add("Incorect email address.");
+        }
+
+        return  errors;
     }
 }

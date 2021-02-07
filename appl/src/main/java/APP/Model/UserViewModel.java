@@ -1,5 +1,8 @@
 package APP.Model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 public class UserViewModel {
@@ -34,6 +37,8 @@ public class UserViewModel {
         return firstName;
     }
 
+    @Min(value = 1)
+    @Max(value = 100)
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -42,6 +47,8 @@ public class UserViewModel {
         return lastName;
     }
 
+    @Min(value = 1)
+    @Max(value = 100)
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -53,6 +60,9 @@ public class UserViewModel {
     public void setBirthDate(java.util.Date birthDate) {
         this.birthDate = new java.sql.Date(birthDate.getTime());
     }
+
+    @Min(value = 1)
+    @Max(value = 30)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -64,6 +74,9 @@ public class UserViewModel {
         return email;
     }
 
+    @Min(value = 1)
+    @Max(value = 40)
+    @Pattern(regexp=".+@.+\\.[a-z]+", message="Invalid email address!")
     public void setEmail(String email) {
         this.email = email;
     }

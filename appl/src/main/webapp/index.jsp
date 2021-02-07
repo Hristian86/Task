@@ -11,6 +11,23 @@
 <h1 class="text-center">
     User management.
 </h1>
+
+    <%
+    List<String> lists = (List) request.getAttribute("errors");
+
+        if (lists != null && lists.size() > 0) {
+            for (String err : lists) {
+                %>
+
+            <p class="text-danger"><%=err%></p>
+
+            <%
+            }
+        }
+    %>
+
+<% request.getAttribute("success"); %>
+
 <br/>
 
 <p align="center"><a href="/userss" class="btn btn-primary">Add User</a></p>

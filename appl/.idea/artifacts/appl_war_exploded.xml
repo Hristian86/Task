@@ -41,6 +41,7 @@
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:5.4.27.Final" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
         </element>
       </element>
       <element id="directory" name="META-INF">
