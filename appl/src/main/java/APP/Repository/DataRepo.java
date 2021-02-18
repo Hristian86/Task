@@ -24,16 +24,19 @@ public class DataRepo implements IRepository<Users> {
     private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (firstName, lastName, birthDate, phoneNumber, email) VALUES "
             + " (?, ?, ?, ?, ?);";
 
-    private EntityManager entityManager;
-    private Session session;
+    private static EntityManager entityManager;
+    //private Session session;
 
+    // Persistence is used.
     public DataRepo() {
-
+        this.init();
     }
 
+    /*
     private void initHib() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
+     */
 
     private void init() {
         this.entityManager = Persistence.createEntityManagerFactory("user_management")
@@ -44,10 +47,16 @@ public class DataRepo implements IRepository<Users> {
     @Override
     public Users save(Users user) {
 
-        this.initHib();
+        //this.init();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(user);
+        this.entityManager.getTransaction().commit();
+
+        /*this.initHib();
         Transaction t = this.session.beginTransaction();
         this.session.save(user);
         t.commit();
+         */
 
         return user;
     }
@@ -69,12 +78,11 @@ public class DataRepo implements IRepository<Users> {
 
     @Override
     public List<Users> findAll(String filter, String searchWord) {
-        this.init();
+        //this.init();
 
         this.entityManager.getTransaction().begin();
         List<Users> listOfUsers = this.filterResult(filter, searchWord);
         this.entityManager.getTransaction().commit();
-
         /*
         Transaction t = this.session.beginTransaction();
         List<Users> listOfUsers = this.filterResult(filter, searchWord);
@@ -86,29 +94,27 @@ public class DataRepo implements IRepository<Users> {
 
     @Override
     public Users findById(int id) {
-        this.init();
-        //Transaction t = this.session.beginTransaction();
+        //this.init();
+        this.entityManager.getTransaction().begin();
         Users user = this.entityManager
                 .createQuery("SELECT u FROM users u WHERE u.id = :id", Users.class)
                 .setParameter("id", id)
                 .getSingleResult();
-        //t.commit();
-
+        this.entityManager.getTransaction().commit();
         return user;
     }
 
     @Override
     public void delete(int id) {
-        this.init();
+        //this.init();
+        this.entityManager.getTransaction().begin();
         Users user = this.entityManager
                 .createQuery("SELECT u FROM users u WHERE u.id = :id", Users.class)
                 .setParameter("id", id)
                 .getSingleResult();
 
-        this.initHib();
-        Transaction t = this.session.beginTransaction();
-        this.session.delete(user);
-        t.commit();
+        this.entityManager.remove(user);
+        this.entityManager.getTransaction().commit();
     }
 
 
@@ -118,7 +124,8 @@ public class DataRepo implements IRepository<Users> {
         String toSearch = null;
 
         if (searchWord == null || searchWord.length() < 1){
-            return this.cleanFilter(filter);
+            result = this.cleanFilter(filter);
+            return result;
         } else {
             // TODO sanitize searchWord.
             toSearch = searchWord;
@@ -153,10 +160,6 @@ public class DataRepo implements IRepository<Users> {
 
     private List<Users> cleanFilter(String filter) {
         List<Users> result = new ArrayList<>();
-
-        if (filter != null) {
-            int a = 1;
-        }
 
         if (filter == null) {
             result = this.entityManager

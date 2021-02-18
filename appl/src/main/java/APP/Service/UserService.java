@@ -3,7 +3,6 @@ package APP.Service;
 import APP.Domain.Users;
 import APP.Model.UserViewModel;
 import APP.Repository.DataRepo;
-import APP.Repository.UserRepositoryImpl;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,7 +20,12 @@ public class UserService implements IUSerService {
 
      */
 
-    DataRepo userRepo = new DataRepo();
+    DataRepo userRepo;
+    public  UserService() {
+        if (userRepo == null) {
+            userRepo = new DataRepo();
+        }
+    }
 
     @Override
     public Iterable<UserViewModel> getAll(String filter, String searchWord) {
